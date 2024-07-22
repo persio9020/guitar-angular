@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Guitrarra } from './_models/Guitarra';
 import { GUITARRAS } from './data/mock-guitarras';
+import { GuitarrasService } from './_service/guitarras.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,9 +13,13 @@ export class AppComponent implements OnInit {
   carrito: Guitrarra[]=[];
   guitarra: Guitrarra;
 
+  constructor(private guitarraService: GuitarrasService){
+
+  }n
+
   ngOnInit(): void {
-    this.guitarras = GUITARRAS;
-    this.guitarra = GUITARRAS[10];
+    this.guitarraService.listar().subscribe(guitarras => this.guitarras = guitarras);
+    this.guitarra = GUITARRAS[1];
 
     const carritoStorage = localStorage.getItem('carrito');
     if (carritoStorage) {
